@@ -1,0 +1,7 @@
+{
+  "endpoint": {
+    "host": "http://api.openweathermap.org",
+    "path": "/data/2.5/forecast",
+    "query": "?q={city},{country}&APPID=667488a06190b5012f4d9445fb2118e7"
+  }
+}
