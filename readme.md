@@ -1,6 +1,6 @@
 # 5-day weather app
 
-Tech test for Wipro by Jon Wyatt.
+Tech test by Jon Wyatt.
 
 ## Setup
 Requires Node 6.2.0 to run. If you're using NVM, the project contains an .nvmrc to switch you to that version.
@@ -19,6 +19,7 @@ To view locally: (http://localhost:3000?city=London&country=uk)
 
 ## Public copy
 
+On Heroku: (https://weather-app-jon.herokuapp.com/?city=London&country=uk)
 
 ## Running the tests
 
