@@ -2,6 +2,9 @@
   "name": "wipro",
   "version": "1.0.0",
   "main": "./src/app.js",
+  "engines": {
+    "node": "6.2.0"
+  },
   "scripts": {
     "start": "node ./bin/www",
     "dev": "node src/app.js",
