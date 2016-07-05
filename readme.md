@@ -26,3 +26,8 @@ On Heroku: (https://weather-app-jon.herokuapp.com/?city=London&country=uk)
 ```
 npm test
 ```
+
+## TODO
+- searchbox to enter city / dropdown for country
+- algorithm to work out predominant conditions for a given day & display icon
+- flexbox layout for equal height columns
