@@ -1,5 +1,30 @@
-<h1>5-day Weather Forecast{{#if forecast}} for <span class="t-city">{{forecast.city.name}}</span>{{/if}}</h1>
-
-{{#if errorData}}
-<div class="t-error">An error occurred</div>
-{{/if}}
+<div class="page-wrapper">
+  <h1 class="heading-1">5-day Weather Forecast{{#if forecast}} for <span
+          class="t-city">{{forecast.city.name}}</span>{{/if}}</h1>
+  {{#if errorData}}
+    <div class="t-error">An error occurred</div>
+  {{/if}}
+  {{#if forecast}}
+    <ol class="row">
+      {{#each forecast.days}}
+        <li class="t-day cell">
+          <div class="card">
+            {{displayDate}}
+            <table>
+              {{#each slots}}
+                <tr>
+                  <th scope="row">
+                    <time class="text-sm">{{displayTime}}</time>
+                  </th>
+                  <td><img src="http://openweathermap.org/img/w/{{icon.file}}.png"
+                           alt="{{icon.text}}"/></td>
+                  <td><span class="text-xs label">{{icon.text}}</span></td>
+                </tr>
+              {{/each}}
+            </table>
+          </div>
+        </li>
+      {{/each}}
+    </ol>
+  {{/if}}
+</div>

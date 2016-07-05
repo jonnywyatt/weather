@@ -1,10 +1,10 @@
 const expect = require('chai').expect;
-const app = require('../src/app');
-const appConfig = require('../src/config/default.json');
+const app = require('../../src/app');
+const appConfig = require('../../src/config/default.json');
 const request = require('supertest');
-const fetchForecast = require('../src/middleware/fetchForecast');
+const fetchForecast = require('../../src/middleware/fetchForecast');
 const nock = require('nock');
-const forecastApiResponse = require('./data/forecastApiResponse.json');
+const forecastApiResponse = require('../data/forecastApiResponse.json');
 const cheerio = require('cheerio');
 
 let dom;
@@ -38,6 +38,13 @@ describe('Forecast app', () => {
       requestApp(appConfig.endpoint.path + '?city=London&country=uk', done)
         .expect(() => {
           expect(dom('.t-city').text()).to.equal('London')
+        });
+    });
+
+    it('should display a block for each of the 5 days', done => {
+      requestApp(appConfig.endpoint.path + '?city=London&country=uk', done)
+        .expect(() => {
+          expect(dom('.t-day').length).to.equal(5)
         });
     });
   });
