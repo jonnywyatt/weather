@@ -15,11 +15,11 @@ npm install
 npm run dev
 ```
 
-To view locally: (http://localhost:3000?city=London&country=uk)
+To view locally: (http://localhost:3000/forecast?city=London&country=uk&region=Europe)
 
 ## Public copy
 
-On Heroku: (https://weather-app-jon.herokuapp.com/?city=London&country=uk)
+On Heroku: (https://weather-app-jon.herokuapp.com/forecast?city=London&country=uk&region=Europe)
 
 ## Running the tests
 

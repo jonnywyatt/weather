@@ -1,35 +1,38 @@
 const _ = require('lodash');
-const moment = require('moment');
+const moment = require('moment-timezone');
 
-module.exports = (rawData) => {
+module.exports = (rawData, tzRegion) => {
   let dataCopy = _.cloneDeep(rawData);
   let transformed = {
+    city: dataCopy.city,
     days: []
   };
-  transformed.city = dataCopy.city;
-  let currentDate = -1;
+  let currentDayIntervals = [];
+  let lastIntervalDayNum = -1;
   let displayDate;
-  let currentDayForecasts = [];
-  const numberOfSlots = dataCopy.list.length;
-  dataCopy.list.forEach((item, idx) => {
-    const m = moment.unix(item.dt).add(1, 'hour');
-    const date = m.date();
-    item.displayTime = m.format('kk') + ':00';
-    item.icon = {
-      file: _.get(item, 'weather[0].icon', ''),
-      text: _.get(item, 'weather[0].description', '')
+  dataCopy.list.forEach((interval, idx) => {
+    const m = moment.unix(interval.dt).tz(tzRegion + '/' + dataCopy.city.name);
+    interval.displayTime = m.format('kk') + ':00';
+    interval.icon = {
+      file: _.get(interval, 'weather[0].icon', ''),
+      text: _.get(interval, 'weather[0].description', '')
     };
-
-    if ((date !== currentDate || numberOfSlots - idx === 1) && currentDate !== -1) {
+    interval.dayNum = m.date();
+    const isLastInterval = dataCopy.list.length === idx + 1;
+    if ((interval.dayNum !== lastIntervalDayNum && lastIntervalDayNum !== -1) || isLastInterval) {
+      if (isLastInterval) {
+        currentDayIntervals.push(interval);
+      }
       transformed.days.push({
         displayDate,
-        slots: currentDayForecasts
+        intervals: currentDayIntervals
       });
-      currentDayForecasts = [];
+      currentDayIntervals = [];
     }
-    currentDayForecasts.push(item);
+    currentDayIntervals.push(interval);
     displayDate = m.format('ddd D MMM');
-    currentDate = date;
+
+    lastIntervalDayNum = interval.dayNum;
   });
   return transformed;
 };
